@@ -15,5 +15,6 @@
     "body-parser": "1.15.2"
   },
   "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
