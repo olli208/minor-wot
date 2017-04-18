@@ -113,6 +113,9 @@ void sendButtonPress()
 {
   printDebugMessage("Sending button press to server");
   HTTPClient http;
+    // Our code
+      http.begin("https://290d7bff.ngrok.io/");
+      http.GET();
   http.begin(serverURL + "/api.php?t=sqi&d=" + chipID);
   uint16_t httpCode = http.GET();
   http.end();
@@ -123,11 +126,9 @@ void requestMessage()
 //Serial.print("requestMessageCalled");
   hideColor();
 
-    // Live url here : https://real-time-web-jvbrypsilf.now.sh
   HTTPClient http;
-  // String requestString = serverURL + "/api.php?t=gqi&d=" + chipID + "&v=2"; // look up api index, action is
-  //http.begin(requestString);
-  http.begin(https://real-time-web-jvbrypsilf.now.sh);
+   String requestString = serverURL + "/api.php?t=gqi&d=" + chipID + "&v=2"; // look up api index, action is
+  http.begin(requestString);
   int httpCode = http.GET();
   
   if (httpCode == 200)
