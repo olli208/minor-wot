@@ -30,11 +30,33 @@ app.get('/', function(req, res) {
             t: 'sdc',
             d: users[1],
             td: users[1],
-            c: '#6aff00'
+            c: '#000099'
         }
     });
 
-    res.render('index');
+    request(colr, function (error, response, data) {
+        if(!error && response.statusCode === 200) {
+            color = JSON.parse(data);
+            randomColors.push(color.new_color);
+            res.render('index', {
+                colors: randomColors
+            });
+        }
+    })
+});
+
+app.get('/begin', function(req, res) {
+    request({
+        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+        qs: {
+            t: 'sqi',
+            d: users[1]
+        }
+    });
+});
+
+app.get('/color', function(req, res) {
+    console.log(req.query.id)
 });
 
 app.listen(process.env.PORT || 5000, function (){

@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "ngrok": "ngrok http 5000"
   },
   "author": "",
   "license": "MIT",
@@ -14,5 +15,8 @@
     "express": "^4.15.2",
     "request": "^2.81.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ngrok": "^2.2.6",
+    "nodemon": "^1.11.0"
+  }
 }

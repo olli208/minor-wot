@@ -1,6 +1,7 @@
 #include <OpenWiFi.h>
 
 #include <ESP8266HTTPClient.h>
+#include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <WiFiManager.h>
 
@@ -8,6 +9,7 @@
 #include "config.h"
 #include "WS2812_util.h"
 
+Servo myServo;
 
 int oldTime = 0;
 int oscillationTime = 500;
@@ -59,6 +61,7 @@ void setup()
 
   wifiManager.autoConnect(configSSID.c_str());
   fadeBrightness(0, 255, 255, 1.0);
+  myServo.attach(SERVO_PIN);
 }
 
 //This method starts an oscillation movement in both the LED and servo
@@ -79,6 +82,7 @@ void oscillate(float springConstant, float dampConstant, int c)
   {
     spring.update(0.01);
     setAllPixels(red, green, blue, abs(spring.x) / 255.0);
+    myServo.write(90 + spring.x / 4);
 
     //Check for button press
     if (digitalRead(BUTTON_PIN) == LOW)
@@ -98,6 +102,7 @@ void loop()
   if (digitalRead(BUTTON_PIN) == LOW)
   {
     sendButtonPress();
+    sendColor();
     delay(250);
   }
 
@@ -109,16 +114,21 @@ void loop()
   }
 }
 
-void sendButtonPress()
-{
+void sendColor() {
   printDebugMessage("Sending button press to server");
   HTTPClient http;
-    // Our code
-      http.begin("https://290d7bff.ngrok.io/");
-      http.GET();
-  http.begin(serverURL + "/api.php?t=sqi&d=" + chipID);
+  http.begin("http://e1f6afd3.ngrok.io/color?id=" + chipID);
   uint16_t httpCode = http.GET();
-  http.end();
+  http.end();  
+}
+
+void sendButtonPress()
+{
+//  printDebugMessage("Sending button press to server");
+//  HTTPClient http;
+//  http.begin(serverURL + "/api.php?t=sqi&d=" + chipID);
+//  uint16_t httpCode = http.GET();
+//  http.end();
 }
 
 void requestMessage()
@@ -127,7 +137,7 @@ void requestMessage()
   hideColor();
 
   HTTPClient http;
-   String requestString = serverURL + "/api.php?t=gqi&d=" + chipID + "&v=2"; // look up api index, action is
+  String requestString = serverURL + "/api.php?t=gqi&d=" + chipID + "&v=2"; // look up api index, action is 
   http.begin(requestString);
   int httpCode = http.GET();
   
@@ -182,5 +192,4 @@ String generateChipID()
 
   return chipIDString;
 }
-
 
