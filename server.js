@@ -51,6 +51,7 @@ app.use(express.static('public'));
 app.get('/', function(req, res) {
     var goodAnswer = htmlColor.random();
     var wrongAnswer = htmlColor.random();
+    var randomcolor = htmlColor.random(); // Send to other box
     console.log(goodAnswer, toHex(goodAnswer));
     res.render('index', {
         colors: goodAnswer,
