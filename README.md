@@ -13,3 +13,7 @@ Using the nodeMCu as a controller with one button the user has to press the box 
 - game get harder over time (add colored background to confuse more for example)
 - add external API (?)
 - ..
+
+## Sources
+- [colr api](http://www.colr.org/api.html)
+- ...
