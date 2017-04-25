@@ -8,12 +8,12 @@ var htmlColor = require('html-colors');
 
 var users = [
     {
-        name: NooroelDylan,
+        // name: NooroelDylan, // FF WEGGEHAALD
         button1: '04b7', // Button id Dylan
         button2: 'FFA3' // Button id Nooroel
     },
     {
-        name: OliverRob,
+        // name: OliverRob, // FF WEGGEHAALD
         button1: '0197', // Button id Oliver
         button2: '8548' // Button id Rob
     }
@@ -51,6 +51,9 @@ app.use(express.static('public'));
 app.get('/', function(req, res) {
     var random = htmlColor.random();
     console.log(random, toHex(random));
+    res.render('index', {
+        colors: random
+    })
 
     // request({
     //     uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
