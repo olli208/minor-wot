@@ -6,22 +6,20 @@ var request = require('request');
 var toHex = require('colornames');
 var htmlColor = require('html-colors');
 
-
 // socket.io things
 var http = require('http').createServer(app);
 var io = require('socket.io').listen(http);
 
-
 var users = [
     {
         name: 'NooroelDylan',
-        button1: '04b7', // Button id Dylan
+        button1: '8548', // Button id Rob
         button2: 'FFA3' // Button id Nooroel
     },
     {
         name: 'OliverRob',
         button1: '0197', // Button id Oliver
-        button2: '8548' // Button id Rob
+        button2: '04b7' // Button id Dylan
     }
 ];
 
