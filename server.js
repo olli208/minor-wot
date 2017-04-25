@@ -3,19 +3,25 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
-
-// rndom color api
 var toHex = require('randomcolor');
 var htmlColor = require('html-colors');
 
-// users [Oliver, Dylan, Nooroel]
-var users = ['0197', '04b7', 'FFA3'];
+var users = [
+    {
+        name: NooroelDylan,
+        button1: '04b7', // Button id Dylan
+        button2: 'FFA3' // Button id Nooroel
+    },
+    {
+        name: OliverRob,
+        button1: '0197', // Button id Oliver
+        button2: '8548' // Button id Rob
+    }
+];
 
-var colr = 'http://www.colr.org/json/color/random';
-var host = users[1];
-var target = users[1];
+var host = users[3];
+var target = users[3];
 
-var randomColors = [];
 var highscores = [
     {
         name: '0197',
@@ -45,41 +51,27 @@ app.use(express.static('public'));
 app.get('/', function(req, res) {
     var random = htmlColor.random();
     console.log(random, toHex(random));
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'rdc',
-            t: 'sdc',
-            d: users[1],
-            td: users[1],
-            c: '#000099'
-        }
-    });
-    newColor(res);
+
+    // request({
+    //     uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+    //     qs: {
+    //         t: 'rdc',
+    //         t: 'sdc',
+    //         d: users[3],
+    //         td: users[3],
+    //         c: '#000099'
+    //     }
+    // });
 });
 
-function newColor(res) {
-    request(colr, function (error, response, data) {
-        if(!error && response.statusCode === 200) {
-            color = JSON.parse(data);
-            randomColors.push(color.new_color);
-            res.render('index', {
-                colors: randomColors,
-                color: color.new_color
-            });
-        }
-    });
-    console.log(color);
-}
-
 app.get('/begin', function(req, res) {
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'sqi',
-            d: users[1]
-        }
-    });
+    // request({
+    //     uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+    //     qs: {
+    //         t: 'sqi',
+    //         d: users[3]
+    //     }
+    // });
 });
 
 app.get('/color', function(req, res) {
