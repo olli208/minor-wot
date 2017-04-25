@@ -62,7 +62,7 @@ app.get('/', function(req, res) {
     res.render('index', {
         colors: goodAnswer,
         textcolor: wrongAnswer
-    })
+    });
 
     // request({
     //     uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
