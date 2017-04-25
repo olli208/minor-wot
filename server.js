@@ -4,6 +4,33 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
 
+// rndom color api
+var toHex = require('randomcolor');
+var htmlColor = require('html-colors');
+
+// users [Oliver, Dylan, Nooroel]
+var users = ['0197', '04b7', 'FFA3'];
+
+var colr = 'http://www.colr.org/json/color/random';
+var host = users[1];
+var target = users[1];
+
+var randomColors = [];
+var highscores = [
+    {
+        name: '0197',
+        highscore: 29
+    },
+    {
+        name: '04b7',
+        highscore: 23    
+    },
+    {
+        name: 'FFA3',
+        highscore: 49
+    }
+];
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -11,18 +38,13 @@ app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Set static files as CSS and JS
 app.use(express.static('public'));
 
-// users [Oliver, Dylan, Nooroel]
-var users = ['0197', '04b7', 'FFA3'];
-var host = users[1];
-var target = users[1];
-
-var colr = 'http://www.colr.org/json/color/random';
-var randomColors = [];
-var color;
-
+// route home page
 app.get('/', function(req, res) {
+    var random = htmlColor.random();
+    console.log(random, toHex(random));
     request({
         uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
         qs: {
@@ -64,7 +86,12 @@ app.get('/color', function(req, res) {
     console.log(req.query.id)
 });
 
-var port = process.env.PORT || 5000;
-app.listen(port, function (){
-    console.log('server is running: on: ' + port);
+app.get('/highscore', function(req, res) {
+    res.render('highscore', {
+        highscore: highscores
+    })
+});
+
+app.listen(process.env.PORT || 5000, function (){
+    console.log('server is running: on 5000');
 });

@@ -1,0 +1,10 @@
+<h1>Highscore</h1>
+<ol>
+<% 
+highscore.sort(function (a, b) {
+  return a.highscore - b.highscore;
+}).reverse().forEach(function(user) { %>
+	<li><%= user.name %> - <%= user.highscore %></li>
+<%})%>
+</ol>
+<%- highscore[0].user -%>
