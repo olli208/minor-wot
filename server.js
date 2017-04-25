@@ -6,6 +6,12 @@ var request = require('request');
 var toHex = require('colornames');
 var htmlColor = require('html-colors');
 
+
+// socket.io things
+var http = require('http').createServer(app);
+var io = require('socket.io').listen(http);
+
+
 var users = [
     {
         name: 'NooroelDylan',
@@ -21,6 +27,9 @@ var users = [
 
 var host = users[3];
 var target = users[3];
+
+// socket.io countdown
+var countdown;
 
 var highscores = [
     {
@@ -49,9 +58,28 @@ app.use(express.static('public'));
 
 // route home page
 app.get('/', function(req, res) {
+    // reset socket.io countdown
+    clearInterval(countdown);
+
     var goodAnswer = htmlColor.random();  // send to box
     var wrongAnswer = htmlColor.random(); // Text color the user sees
     var randomcolor = htmlColor.random(); // Send to other box
+
+
+    if (!toHex(goodAnswer)) {
+        console.log('goodAnswer undefined kleur, dus: '  + htmlColor.random());
+        goodAnswer = htmlColor.random();
+    }
+
+    if (!toHex(wrongAnswer)) {
+        console.log(' wrongAnswer undefined kleur, dus: '  + htmlColor.random());
+        wrongAnswer = htmlColor.random();
+    }
+
+    if (!toHex(randomcolor)) {
+        console.log('randomcolor undefined kleur, dus: '  + htmlColor.random());
+        randomcolor = htmlColor.random();
+    }
 
     if(Math.round(Math.random())) {
         sendColorButton1(toHex(wrongAnswer));
@@ -64,7 +92,20 @@ app.get('/', function(req, res) {
     res.render('index', {
         colors: goodAnswer,
         textcolor: wrongAnswer
-    })
+    });
+});
+
+// Dont know where to put this thing yet..
+io.on('connection', function(socket){
+    var counter = 5;
+    countdown = setInterval(function(){
+        counter--;
+        io.sockets.emit('counter', counter);
+        if (counter == 0) {
+            io.sockets.emit('counter', "time's up!");
+            clearInterval(countdown);
+        }
+    }, 1000);
 });
 
 function sendColorButton1(color) {
@@ -112,6 +153,6 @@ app.get('/highscore', function(req, res) {
     })
 });
 
-app.listen(process.env.PORT || 5000, function (){
+http.listen(process.env.PORT || 5000, function (){
     console.log('server is running: on 5000');
 });

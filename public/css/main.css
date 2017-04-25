@@ -15,7 +15,7 @@ section{
   text-align: center;
 }
 h1{
-  font-size: 1.5em;
+  font-size: 2vw;
   color: #333333;
   margin-bottom: 0;
 }
@@ -23,7 +23,7 @@ h1{
 h2{
   margin-top: 0;
   padding-top: 0;
-  font-size: 7em;
+  font-size: 9vw;
   font-weight: 800;
   text-transform: uppercase;
   -webkit-text-stroke: 1px #d1d1d1;
