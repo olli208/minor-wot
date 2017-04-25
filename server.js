@@ -52,27 +52,16 @@ app.get('/', function(req, res) {
     var goodAnswer = htmlColor.random();  // send to box
     var wrongAnswer = htmlColor.random(); // Text color the user sees
     var randomcolor = htmlColor.random(); // Send to other box
-    console.log(goodAnswer, toHex(goodAnswer));
 
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'sdc',
-            d: '8548',
-            td: '8548',
-            c: toHex(goodAnswer)
-        }
-    });
+    var randomNumber = Math.round(Math.random());
 
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'sdc',
-            d: 'FFA3',
-            td: 'FFA3',
-            c: toHex(wrongAnswer)
-        }
-    });
+    if(randomNumber) {
+        sendColorButton1(toHex(wrongAnswer));
+        sendColorButton2(toHex(goodAnswer));
+    } else {
+        sendColorButton1(toHex(goodAnswer));
+        sendColorButton2(toHex(wrongAnswer));
+    }
 
     res.render('index', {
         colors: goodAnswer,
@@ -80,8 +69,31 @@ app.get('/', function(req, res) {
     })
 });
 
+function sendColorButton1(color) {
+    request({
+        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+        qs: {
+            t: 'sdc',
+            d: '8548',
+            td: '8548',
+            c: color
+        }
+    });
+}
+
+function sendColorButton2(color) {
+    request({
+        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+        qs: {
+            t: 'sdc',
+            d: 'FFA3',
+            td: 'FFA3',
+            c: color
+        }
+    });
+}
+
 app.get('/begin', function(req, res) {
-    console.log('begin')
     request({
         uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
         qs: {

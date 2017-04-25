@@ -160,7 +160,6 @@ void requestMessage()
     }
     else
     {
-       printDebugMessage("There are messages");
       //Get the indexes of some commas, will be used to split strings
       int firstComma = response.indexOf(',');
       int secondComma = response.indexOf(',', firstComma + 1);
@@ -204,3 +203,4 @@ String generateChipID()
 
   return chipIDString;
 }
+
