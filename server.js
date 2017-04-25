@@ -10,6 +10,16 @@ var htmlColor = require('html-colors');
 var http = require('http').createServer(app);
 var io = require('socket.io').listen(http);
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// View engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Set static files as CSS and JS
+app.use(express.static('public'));
+
 var users = [
     {
         name: 'NooroelDylan',
@@ -44,51 +54,45 @@ var highscores = [
     }
 ];
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-// View engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Set static files as CSS and JS
-app.use(express.static('public'));
-
 // route home page
 app.get('/', function(req, res) {
     // reset socket.io countdown
     clearInterval(countdown);
 
-    var goodAnswer = htmlColor.random();  // send to box
-    var wrongAnswer = htmlColor.random(); // Text color the user sees
-    var randomcolor = htmlColor.random(); // Send to other box
+    var boxColor = htmlColor.random();  // send to box
+    var textColor = htmlColor.random(); // Text color the user sees
+    var otherColor = htmlColor.random(); // Send to other box
 
-    if (!toHex(goodAnswer)) {
-        console.log('goodAnswer undefined kleur, dus: '  + htmlColor.random());
-        goodAnswer = htmlColor.random();
-    }
+    // var goodAnswer = colorToHexCheck(boxColor);
+    // var wrongAnswer = colorToHexCheck(textColor);
+    // var randomColor = colorToHexCheck(otherColor);
 
-    if (!toHex(wrongAnswer)) {
-        console.log(' wrongAnswer undefined kleur, dus: '  + htmlColor.random());
-        wrongAnswer = htmlColor.random();
-    }
+    // console.log('goodAnswer:  ' + goodAnswer);
+    // console.log('wrongAnswer:  ' + wrongAnswer);
+    // console.log('randomColor:  ' + randomColor);
 
-    if (!toHex(randomcolor)) {
-        console.log('randomcolor undefined kleur, dus: '  + htmlColor.random());
-        randomcolor = htmlColor.random();
-    }
+    // function colorToHexCheck(color) {
+    //     if (!toHex(color)) {
+    //         var newColor = htmlColor.random();
+            
+    //         console.log('der ging iets fout', color, toHex(newColor));
+    //         return toHex(newColor);
+    //     } else {
+    //         return toHex(color);
+    //     }
+    // };
 
     if(Math.round(Math.random())) {
-        sendColorToButton(users[0].button1, toHex(randomcolor));
-        sendColorToButton(users[0].button2, toHex(goodAnswer));
+        sendColorToButton(users[0].button1, toHex(otherColor));
+        sendColorToButton(users[0].button2, toHex(boxColor));
     } else {
-        sendColorToButton(users[0].button1, toHex(goodAnswer));
-        sendColorToButton(users[0].button2, toHex(randomcolor));
+        sendColorToButton(users[0].button1, toHex(boxColor));
+        sendColorToButton(users[0].button2, toHex(otherColor));
     }
 
     res.render('index', {
-        colors: goodAnswer,
-        textcolor: wrongAnswer
+        colors: boxColor,
+        textcolor: textColor
     });
 });
 
@@ -98,7 +102,7 @@ io.on('connection', function(socket){
     countdown = setInterval(function(){
         counter--;
         io.sockets.emit('counter', counter);
-        if (counter == 0) {
+        if (counter === 0) {
             io.sockets.emit('counter', "time's up!");
             clearInterval(countdown);
         }
