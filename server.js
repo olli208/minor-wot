@@ -49,32 +49,37 @@ app.use(express.static('public'));
 
 // route home page
 app.get('/', function(req, res) {
+    request({
+        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+        qs: {
+            t: 'sdc',
+            d: '8548',
+            td: '8548',
+            c: '#000099'
+        }
+    });
+
     var random = htmlColor.random();
     console.log(random, toHex(random));
     res.render('index', {
         colors: random
     })
-
-    // request({
-    //     uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-    //     qs: {
-    //         t: 'rdc',
-    //         t: 'sdc',
-    //         d: users[3],
-    //         td: users[3],
-    //         c: '#000099'
-    //     }
-    // });
 });
 
 app.get('/begin', function(req, res) {
+    console.log('begin')
     request({
         uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
         qs: {
-            t: 'sqi',
-            d: users[3]
+            t: 'rdc',
+            d: '8548',
+            td: '8548'
         }
     });
+
+    res.render('index', {
+        colors: '#333'
+    })
 });
 
 app.get('/color', function(req, res) {
