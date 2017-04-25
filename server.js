@@ -8,12 +8,12 @@ var htmlColor = require('html-colors');
 
 var users = [
     {
-        name: NooroelDylan,
+        name: 'NooroelDylan',
         button1: '04b7', // Button id Dylan
         button2: 'FFA3' // Button id Nooroel
     },
     {
-        name: OliverRob,
+        name: 'OliverRob',
         button1: '0197', // Button id Oliver
         button2: '8548' // Button id Rob
     }
@@ -65,13 +65,13 @@ app.get('/', function(req, res) {
 });
 
 app.get('/begin', function(req, res) {
-    // request({
-    //     uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-    //     qs: {
-    //         t: 'sqi',
-    //         d: users[3]
-    //     }
-    // });
+    request({
+        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+        qs: {
+            t: 'sqi',
+            d: users[3]
+        }
+    });
 });
 
 app.get('/color', function(req, res) {
