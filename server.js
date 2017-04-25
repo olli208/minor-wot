@@ -53,9 +53,7 @@ app.get('/', function(req, res) {
     var wrongAnswer = htmlColor.random(); // Text color the user sees
     var randomcolor = htmlColor.random(); // Send to other box
 
-    var randomNumber = Math.round(Math.random());
-
-    if(randomNumber) {
+    if(Math.round(Math.random())) {
         sendColorButton1(toHex(wrongAnswer));
         sendColorButton2(toHex(goodAnswer));
     } else {
