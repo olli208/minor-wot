@@ -58,6 +58,12 @@ app.get('/', function(req, res) {
     var goodAnswer = htmlColor.random();  // send to box
     var wrongAnswer = htmlColor.random(); // Text color the user sees
     var randomcolor = htmlColor.random(); // Send to other box
+
+    if (toHex(goodAnswer) === undefined) {
+        console.log('undefined kleur, dus: '  + htmlColor.random());
+        goodAnswer = htmlColor.random();
+    }
+
     console.log(goodAnswer, toHex(goodAnswer));
     res.render('index', {
         colors: goodAnswer,
