@@ -75,19 +75,19 @@ app.get('/', function(req, res) {
     function colorToHexCheck(color) {
         if (!toHex(color)) {
             var newColor = htmlColor.random();
-            console.log('der ging iets fout' , color , toHex(newColor));
+            console.log('der ging iets fout', color, toHex(newColor));
             return newColor;
         } else {
             return htmlColor.random();
         }
-    }
+    };
 
     if(Math.round(Math.random())) {
-        sendColorButton1(toHex(wrongAnswer));
-        sendColorButton2(toHex(goodAnswer));
+        sendColorToButton(users[0].button1, toHex(randomcolor));
+        sendColorToButton(users[0].button2, toHex(goodAnswer));
     } else {
-        sendColorButton1(toHex(goodAnswer));
-        sendColorButton2(toHex(wrongAnswer));
+        sendColorToButton(users[0].button1, toHex(goodAnswer));
+        sendColorToButton(users[0].button2, toHex(randomcolor));
     }
 
     res.render('index', {
@@ -109,25 +109,13 @@ io.on('connection', function(socket){
     }, 1000);
 });
 
-function sendColorButton1(color) {
+function sendColorToButton(buttonId, color) {
     request({
         uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
         qs: {
             t: 'sdc',
-            d: '8548',
-            td: '8548',
-            c: color
-        }
-    });
-}
-
-function sendColorButton2(color) {
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'sdc',
-            d: 'FFA3',
-            td: 'FFA3',
+            d: buttonId,
+            td: buttonId,
             c: color
         }
     });
@@ -144,7 +132,7 @@ app.get('/begin', function(req, res) {
     });
 });
 
-app.get('/color', function(req, res) {
+app.get('/sendAnswer', function(req, res) {
     console.log(req.query.id)
 });
 

@@ -117,7 +117,7 @@ void loop()
 void sendButtonID() {
   printDebugMessage("Sending button press to server");
   HTTPClient http;
-  http.begin("http://9d1810f7.ngrok.io/color?id=" + chipID);
+  http.begin("http://9d1810f7.ngrok.io/sendAnswer?id=" + chipID);
   uint16_t httpCode = http.GET();
   http.end();  
 }
