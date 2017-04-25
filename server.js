@@ -77,7 +77,7 @@ app.get('/', function(req, res) {
 
     // Dont know where to put this thing yet..
     io.on('connection', function(socket){
-        var counter = 5;
+        var counter = 4;
         var WinnerCountdown = setInterval(function(){
             io.sockets.emit('counter', counter);
             counter--;
