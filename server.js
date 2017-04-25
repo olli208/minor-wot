@@ -64,6 +64,16 @@ app.get('/', function(req, res) {
         }
     });
 
+    request({
+        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
+        qs: {
+            t: 'sdc',
+            d: 'FFA3',
+            td: 'FFA3',
+            c: toHex(wrongAnswer)
+        }
+    });
+
     res.render('index', {
         colors: goodAnswer,
         textcolor: wrongAnswer
@@ -80,10 +90,6 @@ app.get('/begin', function(req, res) {
             td: '8548'
         }
     });
-
-    res.render('index', {
-        colors: '#333'
-    })
 });
 
 app.get('/color', function(req, res) {

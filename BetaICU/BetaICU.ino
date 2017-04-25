@@ -12,7 +12,7 @@
 Servo myServo;
 
 int oldTime = 0;
-int oscillationTime = 500;
+int oscillationTime = 250;
 String chipID;
 String serverURL = SERVER_URL;
 OpenWiFi hotspot;
@@ -69,6 +69,7 @@ void oscillate(float springConstant, float dampConstant, int c)
 {
   SpringyValue spring;
 
+  Serial.print(c);
   byte red = (c >> 16) & 0xff;
   byte green = (c >> 8) & 0xff;
   byte blue = c & 0xff;
@@ -91,7 +92,7 @@ void oscillate(float springConstant, float dampConstant, int c)
       fadeBrightness(red, green, blue, abs(spring.x) / 255.0);
       return;
     }
-    delay(10);
+    delay(50);
   }
   fadeBrightness(red, green, blue, abs(spring.x) / 255.0);
 }
@@ -101,8 +102,7 @@ void loop()
   //Check for button press
   if (digitalRead(BUTTON_PIN) == LOW)
   {
-    sendButtonPress();
-    sendColor();
+    sendButtonID();
     delay(250);
   }
 
@@ -114,27 +114,35 @@ void loop()
   }
 }
 
-void sendColor() {
+void sendButtonID() {
   printDebugMessage("Sending button press to server");
   HTTPClient http;
-  http.begin("http://e1f6afd3.ngrok.io/color?id=" + chipID);
+  http.begin("http://9d1810f7.ngrok.io/color?id=" + chipID);
   uint16_t httpCode = http.GET();
   http.end();  
 }
 
-void sendButtonPress()
+void getColor()
 {
-//  printDebugMessage("Sending button press to server");
-//  HTTPClient http;
-//  http.begin(serverURL + "/api.php?t=sqi&d=" + chipID);
-//  uint16_t httpCode = http.GET();
-//  http.end();
+  printDebugMessage("get color");
+  HTTPClient http;
+  http.begin(serverURL + "/api.php?t=sqi&d=" + chipID);
+  uint16_t httpCode = http.GET();
+  http.end();
+}
+
+void displayColor(int color)
+{
+  byte red = (color >> 16) & 0xff;
+  byte green = (color >> 8) & 0xff;
+  byte blue = color & 0xff;
+
+  setAllPixels(red, green, blue);
 }
 
 void requestMessage()
 {
 //Serial.print("requestMessageCalled");
-  hideColor();
 
   HTTPClient http;
   String requestString = serverURL + "/api.php?t=gqi&d=" + chipID + "&v=2"; // look up api index, action is 
@@ -152,6 +160,7 @@ void requestMessage()
     }
     else
     {
+       printDebugMessage("There are messages");
       //Get the indexes of some commas, will be used to split strings
       int firstComma = response.indexOf(',');
       int secondComma = response.indexOf(',', firstComma + 1);
@@ -171,7 +180,8 @@ void requestMessage()
 
       //Extract the hex color and fade the led strip
       int number = (int) strtol( &response[1], NULL, 16);
-      oscillate(springConstant.toFloat(), dampConstant.toFloat(), number);
+      displayColor(number);
+//      oscillate(springConstant.toFloat(), dampConstant.toFloat(), number);
     }
   }
   else
@@ -180,6 +190,8 @@ void requestMessage()
   }
 
   http.end();
+
+  getColor();
 }
 
 String generateChipID()
@@ -192,4 +204,3 @@ String generateChipID()
 
   return chipIDString;
 }
-
