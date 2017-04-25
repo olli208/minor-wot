@@ -49,8 +49,8 @@ app.use(express.static('public'));
 
 // route home page
 app.get('/', function(req, res) {
-    var goodAnswer = htmlColor.random();
-    var wrongAnswer = htmlColor.random();
+    var goodAnswer = htmlColor.random();  // send to box
+    var wrongAnswer = htmlColor.random(); // Text color the user sees
     var randomcolor = htmlColor.random(); // Send to other box
     console.log(goodAnswer, toHex(goodAnswer));
     res.render('index', {
