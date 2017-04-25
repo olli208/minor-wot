@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
-var toHex = require('randomcolor');
+var toHex = require('colornames');
 var htmlColor = require('html-colors');
 
 var users = [
@@ -49,10 +49,12 @@ app.use(express.static('public'));
 
 // route home page
 app.get('/', function(req, res) {
-    var random = htmlColor.random();
-    console.log(random, toHex(random));
+    var goodAnswer = htmlColor.random();
+    var wrongAnswer = htmlColor.random();
+    console.log(goodAnswer, toHex(goodAnswer));
     res.render('index', {
-        colors: random
+        colors: goodAnswer,
+        textcolor: wrongAnswer
     })
 
     // request({
