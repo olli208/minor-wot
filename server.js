@@ -6,6 +6,12 @@ var request = require('request');
 var toHex = require('colornames');
 var htmlColor = require('html-colors');
 
+
+// socket.io things
+var http = require('http').createServer(app);
+var io = require('socket.io').listen(http);
+
+
 var users = [
     {
         name: 'NooroelDylan',
@@ -68,6 +74,19 @@ app.get('/', function(req, res) {
     //         c: '#000099'
     //     }
     // });
+
+    // Dont know where to put this thing yet..
+    io.on('connection', function(socket){
+        var counter = 5;
+        var WinnerCountdown = setInterval(function(){
+            io.sockets.emit('counter', counter);
+            counter--;
+            if (counter === -1) {
+                io.sockets.emit('counter', "time's up!");
+                clearInterval(WinnerCountdown);
+            }
+        }, 1000);
+    });
 });
 
 app.get('/begin', function(req, res) {
@@ -90,6 +109,6 @@ app.get('/highscore', function(req, res) {
     })
 });
 
-app.listen(process.env.PORT || 5000, function (){
+http.listen(process.env.PORT || 5000, function (){
     console.log('server is running: on 5000');
 });
