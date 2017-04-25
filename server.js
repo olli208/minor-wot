@@ -4,6 +4,10 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
 
+// rndom color api
+var toHex = require('randomcolor');
+var htmlColor = require('html-colors');
+
 // users [Oliver, Dylan, Nooroel]
 var users = ['0197', '04b7', 'FFA3'];
 
@@ -39,6 +43,8 @@ app.use(express.static('public'));
 
 // route home page
 app.get('/', function(req, res) {
+    var random = htmlColor.random();
+    console.log(random, toHex(random));
     request({
         uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
         qs: {
