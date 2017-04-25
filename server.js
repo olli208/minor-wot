@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
-var toHex = require('randomcolor');
+var toHex = require('colornames');
 var htmlColor = require('html-colors');
 
 var users = [
@@ -49,20 +49,24 @@ app.use(express.static('public'));
 
 // route home page
 app.get('/', function(req, res) {
+    var goodAnswer = htmlColor.random();  // send to box
+    var wrongAnswer = htmlColor.random(); // Text color the user sees
+    var randomcolor = htmlColor.random(); // Send to other box
+    console.log(goodAnswer, toHex(goodAnswer));
+
     request({
         uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
         qs: {
             t: 'sdc',
             d: '8548',
             td: '8548',
-            c: '#000099'
+            c: toHex(goodAnswer)
         }
     });
 
-    var random = htmlColor.random();
-    console.log(random, toHex(random));
     res.render('index', {
-        colors: random
+        colors: goodAnswer,
+        textcolor: wrongAnswer
     })
 });
 
