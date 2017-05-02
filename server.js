@@ -35,64 +35,25 @@ var users = [
         name: 'NooroelDylan',
         button1: '8548', // Button id Rob
         button2: 'FFA3', // Button id Nooroel
-        highscore: 23
+        highscore: 23,
+        score: 0
     },
     {
         name: 'OliverRob',
         button1: '0197', // Button id Oliver
         button2: '04b7', // Button id Dylan
-        highscore: 33
+        highscore: 33,
+        score: 0
     }
 ];
 
 var countdown;
 var rightBox;
 
-var highscores = [
-    {
-        name: 'NooroelDylan',
-        highscore: 29
-    },
-    {
-        name: 'OliverRob',
-        highscore: 23    
-    }
-];
-
-// route home page
-app.get('/', function(req, res) {
-
-    res.render('index');
-});
-
-app.get('/game', function(req, res) {
-    // reset socket.io countdown
-    clearInterval(countdown);
-
-    var boxColor = htmlColor.random();  // send to box
-    var textColor = htmlColor.random(); // Text color the user sees
-    var otherColor = htmlColor.random(); // Send to other box
-
-    if(Math.round(Math.random())) {
-        rightBox = users[0].button2;
-        sendColorToButton(users[0].button1, toHex(otherColor));
-        sendColorToButton(users[0].button2, toHex(boxColor));
-    } else {
-        rightBox = users[0].button1;
-        sendColorToButton(users[0].button1, toHex(boxColor));
-        sendColorToButton(users[0].button2, toHex(otherColor));
-    }
-
-    res.render('game', {
-        colors: boxColor,
-        textcolor: textColor
-    });
-});
-
 // Dont know where to put this thing yet..
 io.on('connection', function(socket) {
     var counter = 5;
-    countdown = setInterval(function(){
+    countdown = setInterval(function() {
         counter--;
         io.sockets.emit('counter', counter);
         if (counter === 0) {
@@ -124,6 +85,39 @@ function sendColorToButton(buttonId, color) {
     });
 }
 
+// route home page
+app.get('/', function(req, res) {
+    res.render('index');
+});
+
+app.get('/game', function(req, res) {
+    if(req.query.previousAnswer) {
+        console.log('rightrightright', req.session)
+    }
+
+    // reset socket.io countdown
+    clearInterval(countdown);
+
+    var boxColor = htmlColor.random();  // send to box
+    var textColor = htmlColor.random(); // Text color the user sees
+    var otherColor = htmlColor.random(); // Send to other box
+
+    if(Math.round(Math.random())) {
+        rightBox = users[0].button2;
+        sendColorToButton(users[0].button1, toHex(otherColor));
+        sendColorToButton(users[0].button2, toHex(boxColor));
+    } else {
+        rightBox = users[0].button1;
+        sendColorToButton(users[0].button1, toHex(boxColor));
+        sendColorToButton(users[0].button2, toHex(otherColor));
+    }
+
+    res.render('game', {
+        colors: boxColor,
+        textcolor: textColor
+    });
+});
+
 app.get('/login', function(req, res) {
     res.locals.session = req.session;
     res.locals.req = req;
@@ -141,6 +135,7 @@ app.post('/login', function(req, res) {
             req.session.username = user.name;
             req.session.button1 = user.button1;
             req.session.button2 = user.button2;
+            req.session.score = user.score;
         }
     });
 
@@ -152,10 +147,9 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/sendAnswer', function(req, res) {
-    console.log('rightbox ' + rightBox)
-    console.log('queryid ' + req.query.id)
     if(req.query.id == rightBox) {
         console.log('right')
+        res.redirect('/game?previousAnswer=right');
     } else {
         console.log('wrong')
     }
