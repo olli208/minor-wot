@@ -142,6 +142,10 @@ app.get('/highscore', function(req, res) {
     })
 });
 
+app.get('/restart', function(req, res) {
+    console.log('restart gameeeeeeee bittchh')
+});
+
 http.listen(process.env.PORT || 5000, function (){
     console.log('server is running: on 5000');
 });
