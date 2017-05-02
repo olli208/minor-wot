@@ -12,17 +12,14 @@
 	}
 
 	function challengeButton() {
-		var challengeButtonEl = document.querySelector('.btn-challenge');
+		var challengeButtonEl = document.querySelectorAll('.btn-challenge');
 
-		challengeButtonEl.addEventListener('click', sendChallenge);
-
-		function sendChallenge() {
-			var challengedUser = challengeButtonEl.getAttribute('data-user');
-
-			console.log(challengedUser)
-			socket.emit('challenge player', { challenger: connectedUser, challengedUser: challengedUser});
-		}
-		
+		challengeButtonEl.forEach(function(el) {
+			el.addEventListener('click', function() {
+				var challengedUser = el.getAttribute('data-user');
+				socket.emit('challenge player', { challenger: connectedUser, challengedUser: challengedUser});
+			});
+		});
 	}
 
 	counter();

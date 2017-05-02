@@ -135,18 +135,6 @@ void displayColor(int color)
   setAllPixels(red, green, blue);
 }
 
-void displayChallenge(int color)
-{
-  byte red = (color >> 16) & 0xff;
-  byte green = (color >> 8) & 0xff;
-  byte blue = color & 0xff;
-
-  setAllPixels(red, green, blue);
-  delay(1000);
-  setAllPixels(0, 0, 0);
-  delay(1000);
-}
-
 void requestMessage()
 {
 //Serial.print("requestMessageCalled");
@@ -218,4 +206,3 @@ String generateChipID()
 
   return chipIDString;
 }
-

@@ -35,8 +35,8 @@ var users = [
     }
 ];
 
-// socket.io countdown
 var countdown;
+var rightBox;
 
 var highscores = [
     {
@@ -63,11 +63,13 @@ app.get('/', function(req, res) {
     var otherColor = htmlColor.random(); // Send to other box
 
     if(Math.round(Math.random())) {
-        sendColorToButton(users[1].button1, toHex(otherColor));
-        sendColorToButton(users[1].button2, toHex(boxColor));
+        rightBox = users[1].button2;
+        sendColorToButton(users[0].button1, toHex(otherColor));
+        sendColorToButton(users[0].button2, toHex(boxColor));
     } else {
-        sendColorToButton(users[1].button1, toHex(boxColor));
-        sendColorToButton(users[1].button2, toHex(otherColor));
+        rightBox = users[1].button1;
+        sendColorToButton(users[0].button1, toHex(boxColor));
+        sendColorToButton(users[0].button2, toHex(otherColor));
     }
 
     res.render('index', {
@@ -118,7 +120,11 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/sendAnswer', function(req, res) {
-    console.log(req.query.id)
+    if(req.query.id == rightBox) {
+        console.log('right')
+    } else {
+        console.log('wrong')
+    }
 });
 
 app.get('/highscore', function(req, res) {
