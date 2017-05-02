@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
+var session = require('express-session');
 var toHex = require('colornames');
 var htmlColor = require('html-colors');
 var io = require('socket.io');
@@ -22,16 +23,25 @@ app.set('views', path.join(__dirname, 'views'));
 // Set static files as CSS and JS
 app.use(express.static('public'));
 
+// use session
+app.use(session({
+  secret: "sessionsecret",
+  resave: false,
+  saveUninitialized: true
+}));
+
 var users = [
     {
         name: 'NooroelDylan',
         button1: '8548', // Button id Rob
-        button2: 'FFA3' // Button id Nooroel
+        button2: 'FFA3', // Button id Nooroel
+        highscore: 23
     },
     {
         name: 'OliverRob',
         button1: '0197', // Button id Oliver
-        button2: '04b7' // Button id Dylan
+        button2: '04b7', // Button id Dylan
+        highscore: 33
     }
 ];
 
@@ -51,7 +61,7 @@ var highscores = [
 
 // route home page
 app.get('/', function(req, res) {
-    
+
     res.render('index');
 });
 
@@ -115,9 +125,30 @@ function sendColorToButton(buttonId, color) {
 }
 
 app.get('/login', function(req, res) {
+    res.locals.session = req.session;
+    res.locals.req = req;
+
     res.render('login', {
-        users: users
+        postUrl: '/login'
     })
+});
+
+app.post('/login', function(req, res) {
+    var username = req.body.username;
+
+    users.forEach(function(user) {
+        if(user.name == username) {
+            req.session.username = user.name;
+            req.session.button1 = user.button1;
+            req.session.button2 = user.button2;
+        }
+    });
+
+    if(!req.session.username) {
+        res.send('wrong username')
+    } else {
+        res.redirect('/');
+    }
 });
 
 app.get('/sendAnswer', function(req, res) {
@@ -132,7 +163,7 @@ app.get('/sendAnswer', function(req, res) {
 
 app.get('/highscore', function(req, res) {
     res.render('highscore', {
-        highscore: highscores
+        highscore: users
     })
 });
 
