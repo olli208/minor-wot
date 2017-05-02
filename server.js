@@ -3,13 +3,15 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var request = require('request');
+var session = require('express-session');
 var toHex = require('colornames');
 var htmlColor = require('html-colors');
+var io = require('socket.io');
+var http = require('http');
 
-
-// socket.io things
-var http = require('http').createServer(app);
-var io = require('socket.io').listen(http);
+// socket.io
+http = http.createServer(app);
+io = io(http);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -21,85 +23,37 @@ app.set('views', path.join(__dirname, 'views'));
 // Set static files as CSS and JS
 app.use(express.static('public'));
 
+// use session
+app.use(session({
+    secret: "sessionsecret",
+    resave: false,
+    saveUninitialized: true
+}));
+
 var users = [
     {
         name: 'NooroelDylan',
-        button1: '04b7', // Button id Dylan
-        button2: 'FFA3' // Button id Nooroel
+        button1: '8548', // Button id Rob
+        button2: 'FFA3', // Button id Nooroel
+        highscore: 23,
+        score: 0
     },
     {
         name: 'OliverRob',
         button1: '0197', // Button id Oliver
-        button2: '8548' // Button id Rob
+        button2: '04b7', // Button id Dylan
+        highscore: 33,
+        score: 0
     }
 ];
 
-var host = users[3];
-var target = users[3];
-
-// socket.io countdown
 var countdown;
-
-var highscores = [
-    {
-        name: '0197',
-        highscore: 29
-    },
-    {
-        name: '04b7',
-        highscore: 23    
-    },
-    {
-        name: 'FFA3',
-        highscore: 49
-    }
-];
-
-// route home page
-app.get('/', function(req, res) {
-    // reset socket.io countdown
-    clearInterval(countdown);
-
-    var boxColor = htmlColor.random();  // send to box
-    var textColor = htmlColor.random(); // Text color the user sees
-    var otherColor = htmlColor.random(); // Send to other box
-
-    var goodAnswer = colorToHexCheck(boxColor);
-    var wrongAnswer = colorToHexCheck(textColor);
-    var randomColor = colorToHexCheck(otherColor);
-
-    console.log('goodAnswer:  ' + goodAnswer);
-    console.log('wrongAnswer:  ' + wrongAnswer);
-    console.log('randomColor:  ' + randomColor);
-
-    function colorToHexCheck(color) {
-        if (!toHex(color)) {
-            var newColor = htmlColor.random();
-            console.log('der ging iets fout', color, toHex(newColor));
-            return newColor;
-        } else {
-            return htmlColor.random();
-        }
-    };
-
-    if(Math.round(Math.random())) {
-        sendColorToButton(users[0].button1, toHex(randomColor));
-        sendColorToButton(users[0].button2, toHex(goodAnswer));
-    } else {
-        sendColorToButton(users[0].button1, toHex(goodAnswer));
-        sendColorToButton(users[0].button2, toHex(randomColor));
-    }
-
-    res.render('index', {
-        colors: goodAnswer,
-        textcolor: wrongAnswer
-    });
-});
+var rightBox;
 
 // Dont know where to put this thing yet..
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
     var counter = 5;
-    countdown = setInterval(function(){
+    countdown = setInterval(function() {
         counter--;
         io.sockets.emit('counter', counter);
         if (counter === 0) {
@@ -107,6 +61,16 @@ io.on('connection', function(socket){
             clearInterval(countdown);
         }
     }, 1000);
+
+    socket.on('challenge player', function(data) {
+        users.forEach(function(user){
+            if(user.name == data.challengedUser) {
+                console.log(user.button1)
+                sendColorToButton(user.button1, '#f4f142');
+                sendColorToButton(user.button2, '#f4f142');
+            }
+        });
+    });
 });
 
 function sendColorToButton(buttonId, color) {
@@ -121,29 +85,86 @@ function sendColorToButton(buttonId, color) {
     });
 }
 
-app.get('/begin', function(req, res) {
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'rdc',
-            d: '8548',
-            td: '8548'
-        }
+// route home page
+app.get('/', function(req, res) {
+    res.render('index');
+});
+
+app.get('/game', function(req, res) {
+    if(req.query.previousAnswer) {
+        console.log('rightrightright', req.session)
+    }
+
+    // reset socket.io countdown
+    clearInterval(countdown);
+
+    var boxColor = htmlColor.random();  // send to box
+    var textColor = htmlColor.random(); // Text color the user sees
+    var otherColor = htmlColor.random(); // Send to other box
+
+    if(Math.round(Math.random())) {
+        rightBox = users[0].button2;
+        sendColorToButton(users[0].button1, toHex(otherColor));
+        sendColorToButton(users[0].button2, toHex(boxColor));
+    } else {
+        rightBox = users[0].button1;
+        sendColorToButton(users[0].button1, toHex(boxColor));
+        sendColorToButton(users[0].button2, toHex(otherColor));
+    }
+
+    res.render('game', {
+        colors: boxColor,
+        textcolor: textColor
     });
 });
 
+app.get('/login', function(req, res) {
+    res.locals.session = req.session;
+    res.locals.req = req;
+
+    res.render('login', {
+        postUrl: '/login'
+    })
+});
+
+app.post('/login', function(req, res) {
+    var username = req.body.username;
+
+    users.forEach(function(user) {
+        if(user.name == username) {
+            req.session.username = user.name;
+            req.session.button1 = user.button1;
+            req.session.button2 = user.button2;
+            req.session.score = user.score;
+        }
+    });
+
+    if(!req.session.username) {
+        res.send('wrong username')
+    } else {
+        res.redirect('/');
+    }
+});
+
 app.get('/sendAnswer', function(req, res) {
-    console.log(req.query.id)
+    if(req.query.id == rightBox) {
+        console.log('right')
+        res.redirect('/game?previousAnswer=right');
+    } else {
+        console.log('wrong')
+    }
 });
 
 app.get('/highscore', function(req, res) {
     res.render('highscore', {
-        highscore: highscores
+        highscore: users
     })
 });
 
+// Olivers code toegevoegd:
 app.get('/restart', function(req, res) {
-    console.log('restart gameeeeeeee bittchh')
+    // When sensor/box is put sideways go to this route
+    console.log('restarting game...')
 });
 
 http.listen(process.env.PORT || 5000, function (){

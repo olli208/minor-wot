@@ -1,0 +1,13 @@
+<% include partials/header.ejs %>
+<section>
+	<h1>Log in</h1>
+    <form class="login-form" action="<%= postUrl %>" method="post">
+    	<fieldset>
+    		<label id="username">Username</label>
+    		<input type="text" name="username">
+    	</fieldset>
+    	<button type="submit">Log in</button>
+    </form>
+</section>
+
+<% include partials/footer.ejs %>

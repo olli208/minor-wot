@@ -1,3 +1,4 @@
+<% include partials/header.ejs %>
 <h1>Highscore</h1>
 <ol>
 <% 
@@ -8,3 +9,5 @@ highscore.sort(function (a, b) {
 <%})%>
 </ol>
 <%- highscore[0].user -%>
+
+<% include partials/footer.ejs %>
