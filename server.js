@@ -83,11 +83,11 @@ app.get('/', function(req, res) {
     };
 
     if(Math.round(Math.random())) {
-        sendColorToButton(users[0].button1, toHex(randomcolor));
+        sendColorToButton(users[0].button1, toHex(randomColor));
         sendColorToButton(users[0].button2, toHex(goodAnswer));
     } else {
         sendColorToButton(users[0].button1, toHex(goodAnswer));
-        sendColorToButton(users[0].button2, toHex(randomcolor));
+        sendColorToButton(users[0].button2, toHex(randomColor));
     }
 
     res.render('index', {
