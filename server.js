@@ -40,21 +40,22 @@ var rightBox;
 
 var highscores = [
     {
-        name: '0197',
+        name: 'NooroelDylan',
         highscore: 29
     },
     {
-        name: '04b7',
+        name: 'OliverRob',
         highscore: 23    
-    },
-    {
-        name: 'FFA3',
-        highscore: 49
     }
 ];
 
 // route home page
 app.get('/', function(req, res) {
+    
+    res.render('index');
+});
+
+app.get('/game', function(req, res) {
     // reset socket.io countdown
     clearInterval(countdown);
 
@@ -63,23 +64,23 @@ app.get('/', function(req, res) {
     var otherColor = htmlColor.random(); // Send to other box
 
     if(Math.round(Math.random())) {
-        rightBox = users[1].button2;
+        rightBox = users[0].button2;
         sendColorToButton(users[0].button1, toHex(otherColor));
         sendColorToButton(users[0].button2, toHex(boxColor));
     } else {
-        rightBox = users[1].button1;
+        rightBox = users[0].button1;
         sendColorToButton(users[0].button1, toHex(boxColor));
         sendColorToButton(users[0].button2, toHex(otherColor));
     }
 
-    res.render('index', {
+    res.render('game', {
         colors: boxColor,
         textcolor: textColor
     });
 });
 
 // Dont know where to put this thing yet..
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
     var counter = 5;
     countdown = setInterval(function(){
         counter--;
@@ -120,6 +121,8 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/sendAnswer', function(req, res) {
+    console.log('rightbox ' + rightBox)
+    console.log('queryid ' + req.query.id)
     if(req.query.id == rightBox) {
         console.log('right')
     } else {

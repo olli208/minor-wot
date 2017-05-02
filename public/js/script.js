@@ -5,9 +5,12 @@
 	function counter() {
 		socket.on('counter', function(count){
 		    var h3 = document.createElement('h3');
+		    var timerEl = document.querySelector('#timer');
 		    h3.className = "countdown";
 
-		    document.getElementById("timer").innerHTML = count;
+		    if(timerEl) {
+		    	timerEl.innerHTML = count;
+		    }
 		});
 	}
 
