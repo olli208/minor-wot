@@ -5,10 +5,12 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var toHex = require('colornames');
 var htmlColor = require('html-colors');
+var io = require('socket.io');
+var http = require('http');
 
-// socket.io things
-var http = require('http').createServer(app);
-var io = require('socket.io').listen(http);
+// socket.io
+http = http.createServer(app);
+io = io(http);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -32,9 +34,6 @@ var users = [
         button2: '04b7' // Button id Dylan
     }
 ];
-
-var host = users[3];
-var target = users[3];
 
 // socket.io countdown
 var countdown;
@@ -63,31 +62,12 @@ app.get('/', function(req, res) {
     var textColor = htmlColor.random(); // Text color the user sees
     var otherColor = htmlColor.random(); // Send to other box
 
-    // var goodAnswer = colorToHexCheck(boxColor);
-    // var wrongAnswer = colorToHexCheck(textColor);
-    // var randomColor = colorToHexCheck(otherColor);
-
-    // console.log('goodAnswer:  ' + goodAnswer);
-    // console.log('wrongAnswer:  ' + wrongAnswer);
-    // console.log('randomColor:  ' + randomColor);
-
-    // function colorToHexCheck(color) {
-    //     if (!toHex(color)) {
-    //         var newColor = htmlColor.random();
-            
-    //         console.log('der ging iets fout', color, toHex(newColor));
-    //         return toHex(newColor);
-    //     } else {
-    //         return toHex(color);
-    //     }
-    // };
-
     if(Math.round(Math.random())) {
-        sendColorToButton(users[0].button1, toHex(otherColor));
-        sendColorToButton(users[0].button2, toHex(boxColor));
+        sendColorToButton(users[1].button1, toHex(otherColor));
+        sendColorToButton(users[1].button2, toHex(boxColor));
     } else {
-        sendColorToButton(users[0].button1, toHex(boxColor));
-        sendColorToButton(users[0].button2, toHex(otherColor));
+        sendColorToButton(users[1].button1, toHex(boxColor));
+        sendColorToButton(users[1].button2, toHex(otherColor));
     }
 
     res.render('index', {
@@ -107,6 +87,16 @@ io.on('connection', function(socket){
             clearInterval(countdown);
         }
     }, 1000);
+
+    socket.on('challenge player', function(data) {
+        users.forEach(function(user){
+            if(user.name == data.challengedUser) {
+                console.log(user.button1)
+                sendColorToButton(user.button1, '#f4f142');
+                sendColorToButton(user.button2, '#f4f142');
+            }
+        });
+    });
 });
 
 function sendColorToButton(buttonId, color) {
@@ -121,15 +111,10 @@ function sendColorToButton(buttonId, color) {
     });
 }
 
-app.get('/begin', function(req, res) {
-    request({
-        uri: `http://oege.ie.hva.nl/~palr001/icu/api.php`,
-        qs: {
-            t: 'rdc',
-            d: '8548',
-            td: '8548'
-        }
-    });
+app.get('/login', function(req, res) {
+    res.render('login', {
+        users: users
+    })
 });
 
 app.get('/sendAnswer', function(req, res) {

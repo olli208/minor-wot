@@ -1,15 +1,12 @@
 #include <OpenWiFi.h>
 
 #include <ESP8266HTTPClient.h>
-#include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <WiFiManager.h>
 
 #include "SpringyValue.h"
 #include "config.h"
 #include "WS2812_util.h"
-
-Servo myServo;
 
 int oldTime = 0;
 int oscillationTime = 250;
@@ -61,7 +58,6 @@ void setup()
 
   wifiManager.autoConnect(configSSID.c_str());
   fadeBrightness(0, 255, 255, 1.0);
-  myServo.attach(SERVO_PIN);
 }
 
 //This method starts an oscillation movement in both the LED and servo
@@ -83,7 +79,6 @@ void oscillate(float springConstant, float dampConstant, int c)
   {
     spring.update(0.01);
     setAllPixels(red, green, blue, abs(spring.x) / 255.0);
-    myServo.write(90 + spring.x / 4);
 
     //Check for button press
     if (digitalRead(BUTTON_PIN) == LOW)
@@ -117,7 +112,7 @@ void loop()
 void sendButtonID() {
   printDebugMessage("Sending button press to server");
   HTTPClient http;
-  http.begin("http://9d1810f7.ngrok.io/sendAnswer?id=" + chipID);
+  http.begin("http://5a68a4c5.ngrok.io/sendAnswer?id=" + chipID);
   uint16_t httpCode = http.GET();
   http.end();  
 }
@@ -138,6 +133,18 @@ void displayColor(int color)
   byte blue = color & 0xff;
 
   setAllPixels(red, green, blue);
+}
+
+void displayChallenge(int color)
+{
+  byte red = (color >> 16) & 0xff;
+  byte green = (color >> 8) & 0xff;
+  byte blue = color & 0xff;
+
+  setAllPixels(red, green, blue);
+  delay(1000);
+  setAllPixels(0, 0, 0);
+  delay(1000);
 }
 
 void requestMessage()
@@ -179,7 +186,15 @@ void requestMessage()
 
       //Extract the hex color and fade the led strip
       int number = (int) strtol( &response[1], NULL, 16);
-      displayColor(number);
+    Serial.println(number);
+    
+      if (number == 16052546) {
+        oscillate(springConstant.toFloat(), dampConstant.toFloat(), number);
+         printDebugMessage("challenge");
+      } else {
+        displayColor(number);
+      }
+      
 //      oscillate(springConstant.toFloat(), dampConstant.toFloat(), number);
     }
   }
