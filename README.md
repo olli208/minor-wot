@@ -1,16 +1,21 @@
-# Minor WebDev | Web Of Things
+# Web Of Things - Minor Webdevelopment
 Mindf*ck Colorgame - Dylan van Sprang | Nooroel Imamdi | Oliver Oenang | Rob van der Pas
 
 ## Idee
+
+![image](https://s-media-cache-ak0.pinimg.com/564x/b3/e0/5c/b3e05c9a200edac39db36ac45950a73b.jpg)
+
 Webdevelopers kunnen tussen het werk door elkaar onderling uitdagen op de werkvloer met de Mindf*ck colorgame, met als voornaamste doel tussendoor ontspanning te zoeken tussen het werk door.
 
 De Mindf*ck colorgame betreft een spel waarbij de juiste kleur bij het desbetreffende woord geraden moet worden binnen een x aantal seconden. De gebruiker kan zijn keuze uitbrengen door op één van twee lichtknoppen te drukken waarvan hij denkt dat het de bijhorende kleur is. Deze challenge wordt uiteindelijk opgenomen in een ranking onder de werknemers binnen een bedrijf. De resultaten resulteren in een klassement onder de werknemers.
+
+- [Eerste uitwerking](http://imamovicdesign.com/minor/wot/red.html)
 
 ### Doel
 Het doel van de toepassing is om werknemers (developers) op de werkvloer tussendoor een korte break te gunnen om even te ontspannen, zonder dat zij gestoord worden binnen hun werkzaamheden.
 
 ## Schema communicatie gebruikers
-![image](https://s-media-cache-ak0.pinimg.com/564x/b3/e0/5c/b3e05c9a200edac39db36ac45950a73b.jpg)
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/diagram-stappenplan-gebruikers.png?raw=true)
 
 ### Stappen
 - Gebruiker A kan een gebruiker uitnodigen voor een challenge via het dashboard.
@@ -20,6 +25,7 @@ Het doel van de toepassing is om werknemers (developers) op de werkvloer tussend
 - Vervolgens kunnen zij het spel, afzonderlijk van elkaar, starten in de dashboard.
 - Na afloop verschijnt een score die behaald is.
 - Indien beiden gebruikers het spel hebben gespeeld, worden beiden hiervan op de hoogte gesteld van de definitieve uitkomst met een lichtsignaal op de knop en een notificatie vanuit het dashboard.
+
 
 ## Ontwerpproces
 
@@ -32,7 +38,7 @@ Het doel van de toepassing is om werknemers (developers) op de werkvloer tussend
 - Toetsenbord
 - Muis
 
-![image](https://s-media-cache-ak0.pinimg.com/564x/b3/e0/5c/b3e05c9a200edac39db36ac45950a73b.jpg)
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/desktop-freepik.png?raw=true)
 [Freepik](http://www.freepik.com/free-photos-vectors/business)
 
 ### 2. Meten is weten / Waarom ontwerpen wij dit
@@ -52,13 +58,13 @@ Om aan dit spel deel te nemen, moet een gebruiker beschikken over het volgende:
 Aangezien webdevelopers op het werk continue achter een computer werken, is een webbrowser voor hen binnen handbereik. Via de webbrowser kunnen ze inloggen op het dashboard van Mindf*ck colorgame. Op het dashboard staan alle leden van het team, een ranking en openstaande uitdagingen. Voor de gebruikers is het mogelijk om vanuit het dashboard een challenge uit te vaardigen naar een collega.
 
 ##### Mindf*ck colorgame Dashboard
-![DashboardEr](https://github.com/olli208/minor-wot/blob/master/docs/dashboard-home.jpg)
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/dashboard-home.jpg?raw=true)
 *Home*
 
-![Ranking](https://github.com/olli208/minor-wot/blob/master/docs/dashboard-ranking.jpg)
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/dashboard-controller.jpg?raw=true)
 *Ranking*
 
-![Controller](https://github.com/olli208/minor-wot/blob/master/docs/dashboard-controller.jpg)
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/dashboard-ranking.jpg?raw=true)
 *Controller*
 
 ##### Lichtknoppen
@@ -80,7 +86,13 @@ Uitdagingen zullen ook getoond worden via het dashboard, door middel van push-me
 ### 5. De knoppen (controllers)
 Elke gebruiker krijgt twee knoppen. Deze zullen elk een andere kleur krijgen en is het aan de gebruiker om de juiste kleur te kiezen.
 
+### 6. Stylguide
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/styleguide.png?raw=true)
+
 ## Techniek
+
+![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/schema_werking.png?raw=true)
+*Schematische tekening werking*
 
 ### Serverside
 Colr api wordt gebruikt om random kleuren te genereren en naar de dozen te sturen.
@@ -91,3 +103,7 @@ De gebruiker speelt het spel, krijgt een score terug en krijgt vervolgens de opt
 ### Sensoren die wij gaan / willen gebruiken
 Bewegingssensor om spel te resetten
 Trilsensor om melding naar andere doosjes te melden of je “uitgedaagd”  wordt.
+
+
+## Sources
+- [colr api](http://www.colr.org/api.html)
