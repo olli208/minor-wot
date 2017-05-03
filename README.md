@@ -86,7 +86,7 @@ Uitdagingen zullen ook getoond worden via het dashboard, door middel van push-me
 ### 5. De knoppen (controllers)
 Elke gebruiker krijgt twee knoppen. Deze zullen elk een andere kleur krijgen en is het aan de gebruiker om de juiste kleur te kiezen.
 
-### 6. Stylguide
+### 6. Styleguide
 ![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/styleguide.png?raw=true)
 
 ## Techniek
