@@ -21,7 +21,6 @@ Het doel van de toepassing is om werknemers (developers) op de werkvloer tussend
 - Na afloop verschijnt een score die behaald is.
 - Indien beiden gebruikers het spel hebben gespeeld, worden beiden hiervan op de hoogte gesteld van de definitieve uitkomst met een lichtsignaal op de knop en een notificatie vanuit het dashboard.
 
-
 ## Ontwerpproces
 
 ### 1. Situatieschets
@@ -53,13 +52,13 @@ Om aan dit spel deel te nemen, moet een gebruiker beschikken over het volgende:
 Aangezien webdevelopers op het werk continue achter een computer werken, is een webbrowser voor hen binnen handbereik. Via de webbrowser kunnen ze inloggen op het dashboard van Mindf*ck colorgame. Op het dashboard staan alle leden van het team, een ranking en openstaande uitdagingen. Voor de gebruikers is het mogelijk om vanuit het dashboard een challenge uit te vaardigen naar een collega.
 
 ##### Mindf*ck colorgame Dashboard
-![image]()
+![DashboardEr](https://github.com/olli208/minor-wot/blob/master/docs/dashboard-home.jpg)
 *Home*
 
-![image]()
+![Ranking](https://github.com/olli208/minor-wot/blob/master/docs/dashboard-ranking.jpg)
 *Ranking*
 
-![image]()
+![Controller](https://github.com/olli208/minor-wot/blob/master/docs/dashboard-controller.jpg)
 *Controller*
 
 ##### Lichtknoppen
