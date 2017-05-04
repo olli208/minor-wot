@@ -186,6 +186,14 @@ app.get('/users/ranking', function(req, res) {
     }
 });
 
+app.get('/logout', function(req, res) {
+    res.locals.req = req;
+
+    res.render('login', {
+        postUrl: '/login'
+    })
+});
+
 app.get('/users/controller', function(req, res) {
     if(req.session.username) {
        res.render('controller'); 
