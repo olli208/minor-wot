@@ -37,14 +37,14 @@ var users = [
     {
         name: 'RobNooroel',
         button1: '8548', // Button id Rob
-        button2: 'FFA3', // Button id Nooroel
+        button2: '04b7', // Button id Dylan
         highscore: 23,
         score: 0
     },
     {
         name: 'OliverDylan',
         button1: '0197', // Button id Oliver
-        button2: '04b7', // Button id Dylan
+        button2: 'FFA3', // Button id Nooroel
         highscore: 33,
         score: 0
     }
@@ -121,13 +121,13 @@ app.get('/game', function(req, res) {
     var otherColor = htmlColor.random(); // Send to other box
 
     if(Math.round(Math.random())) {
-        rightBox = users[1].button2;
-        sendColorToButton(users[1].button1, toHex(otherColor));
-        sendColorToButton(users[1].button2, toHex(boxColor));
+        rightBox = users[0].button2;
+        sendColorToButton(users[0].button1, toHex(otherColor));
+        sendColorToButton(users[0].button2, toHex(boxColor));
     } else {
-        rightBox = users[1].button1;
-        sendColorToButton(users[1].button1, toHex(boxColor));
-        sendColorToButton(users[1].button2, toHex(otherColor));
+        rightBox = users[0].button1;
+        sendColorToButton(users[0].button1, toHex(boxColor));
+        sendColorToButton(users[0].button2, toHex(otherColor));
     }
 
     if(req.session.username) {
@@ -194,6 +194,14 @@ app.get('/users/ranking', function(req, res) {
     } else {
         res.redirect('/login');
     }
+});
+
+app.get('/logout', function(req, res) {
+    res.locals.req = req;
+
+    res.render('login', {
+        postUrl: '/login'
+    })
 });
 
 app.get('/users/controller', function(req, res) {

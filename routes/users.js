@@ -15,6 +15,12 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+router.get('/logout', function(req, res){
+	req.logout();
+
+	res.redirect('/login');
+});
+
 // load ranking page
 router.get('/ranking', function(req, res){
 	res.render('ranking');
