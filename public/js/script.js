@@ -9,12 +9,14 @@
         var timerEl = document.querySelector('#timer');
         h3.className = "countdown";
 
-        count = count-1;
-        if (count <= 0) {
-            clearInterval(counter);
-            return;
+        if(timerEl) {
+			count = count-1;
+	        if (count <= 0) {
+	            clearInterval(counter);
+	            return;
+	        }
+	        timerEl.innerHTML = count + " secs"; // watch for spelling
         }
-        timerEl.innerHTML = count + " secs"; // watch for spelling
     }
 
 	function challengeButton() {
