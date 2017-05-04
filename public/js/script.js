@@ -1,18 +1,20 @@
 (function () {
-	var socket = io();
 	var connectedUser = 'NooroelDylan';
 
-	function counter() {
-		socket.on('counter', function(count){
-		    var h3 = document.createElement('h3');
-		    var timerEl = document.querySelector('#timer');
-		    h3.className = "countdown";
+    var count = 6;
+    var counter = setInterval(timer, 1000);
+    function timer() {
+        var h3 = document.createElement('h3');
+        var timerEl = document.querySelector('#timer');
+        h3.className = "countdown";
 
-		    if(timerEl) {
-		    	timerEl.innerHTML = count;
-		    }
-		});
-	}
+        count = count-1;
+        if (count <= 0) {
+            clearInterval(counter);
+            return;
+        }
+        timerEl.innerHTML = count + " secs"; // watch for spelling
+    }
 
 	function challengeButton() {
 		var challengeButtonEl = document.querySelectorAll('.btn-challenge');
@@ -25,6 +27,6 @@
 		});
 	}
 
-	counter();
+	timer();
 	challengeButton()
 })();
