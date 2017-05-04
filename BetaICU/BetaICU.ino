@@ -20,8 +20,18 @@ void printDebugMessage(String message) {
 #endif
 }
 
+    const int tiltPin = D3; // the number of the tilt switch pin
+//const int ledPin = 0; the number of the LED pin
+// variables will change:
+  int tiltState = 0; // variable for reading the tilt switch status
+
 void setup()
 {
+  // initialize the LED pin as an output:
+//  pinMode(BUTTONLOW_PIN, OUTPUT); 
+  // initialize the tilt switch pin as an input:
+  pinMode(tiltPin, INPUT);
+  
   pinMode(BUTTONLOW_PIN, OUTPUT);
 
   digitalWrite(BUTTONLOW_PIN, LOW);
@@ -94,6 +104,27 @@ void oscillate(float springConstant, float dampConstant, int c)
 
 void loop()
 {
+  // read the state of the tilt switch value:
+    tiltState = digitalRead(tiltPin);
+    if (tiltState == HIGH) { 
+    // turn LED on: 
+    digitalWrite(BUTTONLOW_PIN, HIGH); 
+//      setAllPixels(0, 0, 0, 0);
+    } else {
+      if (tiltState == 0)
+      {
+        digitalWrite(BUTTONLOW_PIN, LOW);
+        setAllPixels(255, 0, 0, 1.0);
+        printDebugMessage("restarting game");
+        delay(100);
+      // restart game screen for user or direct to home screen
+      HTTPClient http;
+      http.begin("http://9e36d4d6.ngrok.io/restart");
+      uint16_t httpCode = http.GET();
+      http.end();
+      } 
+    }
+  
   //Check for button press
   if (digitalRead(BUTTON_PIN) == LOW)
   {
@@ -112,7 +143,7 @@ void loop()
 void sendButtonID() {
   printDebugMessage("Sending button press to server");
   HTTPClient http;
-  http.begin("http://5a68a4c5.ngrok.io/sendAnswer?id=" + chipID);
+  http.begin("http://9e36d4d6.ngrok.io/sendAnswer?id=" + chipID);
   uint16_t httpCode = http.GET();
   http.end();  
 }

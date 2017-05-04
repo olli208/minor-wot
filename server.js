@@ -87,7 +87,12 @@ function sendColorToButton(buttonId, color) {
 
 // route home page
 app.get('/', function(req, res) {
-    res.render('index');
+    if(req.session.username) {
+        res.render('index');
+    } else {
+        res.redirect('/login');
+    }
+    
 });
 
 app.get('/game', function(req, res) {
@@ -103,13 +108,13 @@ app.get('/game', function(req, res) {
     var otherColor = htmlColor.random(); // Send to other box
 
     if(Math.round(Math.random())) {
-        rightBox = users[0].button2;
-        sendColorToButton(users[0].button1, toHex(otherColor));
-        sendColorToButton(users[0].button2, toHex(boxColor));
+        rightBox = users[1].button2;
+        sendColorToButton(users[1].button1, toHex(otherColor));
+        sendColorToButton(users[1].button2, toHex(boxColor));
     } else {
-        rightBox = users[0].button1;
-        sendColorToButton(users[0].button1, toHex(boxColor));
-        sendColorToButton(users[0].button2, toHex(otherColor));
+        rightBox = users[1].button1;
+        sendColorToButton(users[1].button1, toHex(boxColor));
+        sendColorToButton(users[1].button2, toHex(otherColor));
     }
 
     res.render('game', {
