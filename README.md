@@ -72,9 +72,6 @@ Aangezien webdevelopers op het werk continue achter een computer werken, is een 
 ##### Lichtknoppen
 De lichtknop (twee knoppen) wordt gebruikt om de juiste kleur te kiezen. Deze staat op de bureau van de gebruiker en kan elk moment erbij gepakt worden.
 
-*Wishlist*
-- knoppen die bij het interieur van het bedrijf passen.
-
 ### 4. Meldingen
 - Lichtsignalen
 - Notificaties
@@ -86,7 +83,9 @@ Door middel van een geel lichtsignaal wordt een challenge gecommuniceerd naar de
 Uitdagingen zullen ook getoond worden via het dashboard, door middel van push-meldingen. Bovendien zal er ook een pushmelding verschijnen als de uitslag van een bepaalde ‘wedstrijd’ bekend is.
 
 ### 5. De knoppen (controllers)
-Elke gebruiker krijgt twee knoppen. Deze zullen elk een andere kleur krijgen en is het aan de gebruiker om de juiste kleur te kiezen.
+Elke gebruiker krijgt twee knoppen. Deze zullen elk een andere kleur krijgen en is het aan de gebruiker om de juiste kleur te kiezen. Verder kan de gebruiker het spel herstarten door de knop te kantelen. Die mogelijkheid wordt de gebruiker in het dashboard kenbaar gemaakt middels de volgende instructie:
+
+![image](https://github.com/olli208/minor-wot/blob/master/docs/box-tilt.gif?raw=true)
 
 ### 6. Styleguide
 ![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/styleguide.png?raw=true)
