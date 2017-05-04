@@ -105,6 +105,8 @@ De gebruiker speelt het spel, krijgt een score terug en krijgt vervolgens de opt
 ### Sensoren die wij gebruiken
 Dit product maakt gebruik van een TiltSensor.
 
+![image](https://github.com/olli208/minor-wot/blob/master/docs/tilt-sensor.jpg?raw=true)
+
 *The tilt sensor is a component that can detect the tilting of an object. However it is only the equivalent to a pushbutton activated through a different physical mechanism. This type of sensor is the environmental-friendly version of a mercury-switch. It contains a metallic ball inside that will commute the two pins of the device from on to off and viceversa if the sensor reaches a certain angle.*
 
 [Arduino](https://www.arduino.cc/en/Tutorial/TiltSensor)
