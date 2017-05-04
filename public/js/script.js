@@ -30,6 +30,22 @@
 		});
 	}
 
+	function restartGame() {
+		socket.on('restart game', function() {
+			console.log('client restarttttt')
+			window.location.href = '/';
+		});
+	}
+
+	function questionAnswer() {
+		socket.on('question answer', function(data) {
+			window.location.href = '/game';
+		});
+	}
+
+
 	timer();
-	challengeButton()
+	challengeButton();
+	restartGame();
+	questionAnswer();
 })();

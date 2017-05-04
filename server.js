@@ -160,15 +160,14 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/sendAnswer', function(req, res) {
-
-    console.log(rightBox.toLowerCase() )
-    console.log(req.query.id.toLowerCase()  + ' idd')
     if(req.query.id.toLowerCase() == rightBox.toLowerCase() ) {
         console.log('right')
-        // res.redirect(req.get('referer') + '?previousAnswer=right');
+        res.redirect(req.get('referer'));
+        io.emit('question answer', true);
     } else {
         console.log('wrong')
-        // res.redirect(req.get('referer')  + '?previousAnswer=wrong');
+        res.redirect(req.get('referer'));
+        io.emit('question answer', false);
     }
 });
 
@@ -195,10 +194,11 @@ app.get('/users/controller', function(req, res) {
 });
 
 // Olivers code toegevoegd:
-app.get('/restart', function(req, res) {
+app.get('/game/restart', function(req, res) {
     // When sensor/box is put sideways go to this route
     console.log('restarting game...')
-    res.redirect('index');
+    io.emit('restart game');
+    res.redirect('/');
 });
 
 http.listen(process.env.PORT || 5000, function (){

@@ -119,7 +119,7 @@ void loop()
         delay(100);
       // restart game screen for user or direct to home screen
       HTTPClient http;
-      http.begin("http://9e36d4d6.ngrok.io/restart");
+      http.begin("http://9e36d4d6.ngrok.io/game/restart");
       uint16_t httpCode = http.GET();
       http.end();
       } 
@@ -237,3 +237,4 @@ String generateChipID()
 
   return chipIDString;
 }
+
