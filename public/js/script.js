@@ -10,7 +10,7 @@
         h3.className = "countdown";
 
         count = count-1;
-        if (count <= 0) {
+        if (count <= -1) {
             clearInterval(counter);
             return;
         }
