@@ -44,7 +44,8 @@ template {
 }
 
 a {
-    background-color: transparent
+    background-color: transparent;
+    cursor: pointer;
 }
 
 a:active,
@@ -731,6 +732,14 @@ th {
         background: #2c2c2c;
         padding: 28px 0;
     }
+
+    .Top h3 {
+        display: inline-block;
+    }
+
+    .Top h3 a {
+        color: #fff;
+    }
     .User {
         padding: 20px
     }
@@ -891,6 +900,11 @@ th {
         border: 1px solid #d9d9d9;
         margin-bottom: 20px
     }
+
+    .Team .User__information {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
     .Team h3 {
         line-height: 48px
     }
@@ -917,9 +931,10 @@ th {
 /*Olivers code hierrr*/
 /* CSS GAME */
 .game-section {
-    margin-top: 20em;
+    position: relative;
+    height: 75vh;
+    margin-top: 10em;
     text-align: center;
-    height: 100vh;
 }
 
 .h1Game {
@@ -937,6 +952,17 @@ th {
     -webkit-text-stroke: 1px #d1d1d1;
     letter-spacing: -3px;
     border-bottom: 0;
+}
+
+.gif {
+    /*position: absolute;*/
+    /*bottom:0;*/
+    /*right: 0;*/
+    /*margin-right: 4em;*/
+    /*margin-bottom: 1em;*/
+    margin-top: 10em;
+    height: 8.5em;
+    width: auto;
 }
 /* Einde code Oliver
 */
