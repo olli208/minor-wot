@@ -1,0 +1,80 @@
+<%- include partials/header.ejs %>
+	<main class="Main">
+	    <nav class="Navigation">
+	        <ul>
+	            <li class="User User--black">
+	                <div class="User__image">
+	                    <img src="/img/rob.jpg" title="#" alt="#">
+	                </div>
+	                <div class="User__information">
+	                    <h3>Rob van der Pas</h3>
+	                    <span>#2 / Highscore: 122</span>
+	                </div>
+	            </li>
+	            <li class="Navigation__ranking"><a href="/users/ranking" title="#">Ranking</a></li>
+	            <li class="Navigation__controller"><a href="/users/controller" title="#">Controller</a></li>
+	        </ul>
+	    </nav>
+
+	    <div class="Main__wrapper">
+	        <div class="Challenges">
+	            <section class="Challenges__playable">
+	                <h2 class="Challenges__playable--refresh">Controllers</h2>
+
+	                <ul>
+	                    <li class="User">
+	                        <div class="User__information User__information--icon">
+	                            <h3>Knop 1 / id: FFA3</h3>
+	                        </div>
+
+	                        <div class="User__accept">
+	                            <a class="User__accept--green" href="#" title="#">Verbonden</a>
+	                        </div>
+	                    </li>
+
+	                    <li class="User">
+	                        <div class="User__information User__information--icon">
+	                            <h3>Knop 1 / id: FFA3</h3>
+	                        </div>
+
+	                        <div class="User__accept">
+	                            <a class="User__accept--red" href="#" title="#">Niet verbonden</a>
+	                        </div>
+	                    </li>
+	                </ul>
+	            </section>
+	        </div>
+
+	        <section class="Team">
+	            <h2>Team</h2>
+	            <ul>
+	                <li class="User">
+	                    <div class="User__image">
+	                        <img src="/img/rob.jpg" title="#" alt="#">
+	                    </div>
+	                    <div class="User__information">
+	                        <h3>Henk Donderslag</h3>
+	                    </div>
+	                </li>
+	                <li class="User">
+	                    <div class="User__image">
+	                        <img src="/img/rob.jpg" title="#" alt="#">
+	                    </div>
+	                    <div class="User__information">
+	                        <h3>Henk Donderslag</h3>
+	                    </div>
+	                </li>
+	                            <li class="User">
+	                    <div class="User__image">
+	                        <img src="/img/rob.jpg" title="#" alt="#">
+	                    </div>
+	                    <div class="User__information">
+	                        <h3>Henk Donderslag</h3>
+	                    </div>
+	                </li>
+	            </ul>
+	        </section>
+	    </div>
+	</main>
+
+<%- include partials/footer.ejs %>

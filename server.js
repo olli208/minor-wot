@@ -9,6 +9,9 @@ var htmlColor = require('html-colors');
 var io = require('socket.io');
 var http = require('http');
 
+// Require routes
+// var users = require('./routes/users');
+
 // socket.io
 http = http.createServer(app);
 io = io(http);
@@ -32,14 +35,14 @@ app.use(session({
 
 var users = [
     {
-        name: 'NooroelDylan',
+        name: 'RobNooroel',
         button1: '8548', // Button id Rob
         button2: 'FFA3', // Button id Nooroel
         highscore: 23,
         score: 0
     },
     {
-        name: 'OliverRob',
+        name: 'OliverDylan',
         button1: '0197', // Button id Oliver
         button2: '04b7', // Button id Dylan
         highscore: 33,
@@ -65,7 +68,6 @@ io.on('connection', function(socket) {
     socket.on('challenge player', function(data) {
         users.forEach(function(user){
             if(user.name == data.challengedUser) {
-                console.log(user.button1)
                 sendColorToButton(user.button1, '#f4f142');
                 sendColorToButton(user.button2, '#f4f142');
             }
@@ -85,6 +87,8 @@ function sendColorToButton(buttonId, color) {
     });
 }
 
+// app.use('/users', users);
+
 // route home page
 app.get('/', function(req, res) {
     if(req.session.username) {
@@ -92,7 +96,6 @@ app.get('/', function(req, res) {
     } else {
         res.redirect('/login');
     }
-    
 });
 
 app.get('/game', function(req, res) {
@@ -117,10 +120,15 @@ app.get('/game', function(req, res) {
         sendColorToButton(users[1].button2, toHex(otherColor));
     }
 
-    res.render('game', {
-        colors: boxColor,
-        textcolor: textColor
-    });
+    if(req.session.username) {
+       res.render('game', {
+            colors: boxColor,
+            textcolor: textColor
+        }); 
+    } else {
+        res.redirect('/login');
+    }
+    
 });
 
 app.get('/login', function(req, res) {
@@ -152,11 +160,15 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/sendAnswer', function(req, res) {
-    if(req.query.id == rightBox) {
+
+    console.log(rightBox.toLowerCase() )
+    console.log(req.query.id.toLowerCase()  + ' idd')
+    if(req.query.id.toLowerCase() == rightBox.toLowerCase() ) {
         console.log('right')
-        res.redirect('/game?previousAnswer=right');
+        // res.redirect(req.get('referer') + '?previousAnswer=right');
     } else {
         console.log('wrong')
+        // res.redirect(req.get('referer')  + '?previousAnswer=wrong');
     }
 });
 
@@ -166,10 +178,27 @@ app.get('/highscore', function(req, res) {
     })
 });
 
+app.get('/users/ranking', function(req, res) {
+    if(req.session.username) {
+       res.render('ranking'); 
+    } else {
+        res.redirect('/login');
+    }
+});
+
+app.get('/users/controller', function(req, res) {
+    if(req.session.username) {
+       res.render('controller'); 
+    } else {
+        res.redirect('/login');
+    }
+});
+
 // Olivers code toegevoegd:
 app.get('/restart', function(req, res) {
     // When sensor/box is put sideways go to this route
     console.log('restarting game...')
+    res.redirect('index');
 });
 
 http.listen(process.env.PORT || 5000, function (){

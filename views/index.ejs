@@ -1,10 +1,146 @@
 <% include partials/header.ejs %>
+<main class="Main">
+	    <nav class="Navigation">
+	        <ul>
+	            <li class="User User--black">
+	                <div class="User__image">
+	                    <img src="/img/rob.jpg" title="#" alt="#">
+	                </div>
+	                <div class="User__information">
+	                    <h3>Rob van der Pas</h3>
+	                    <span>#2 / Highscore: 122</span>
+	                </div>
+	            </li>
+	            <li class="Navigation__ranking"><a href="/users/ranking" title="Ranking">Ranking</a></li>
+	            <li class="Navigation__controller"><a href="/users/controller" title="Controller">Controller</a></li>
+	        </ul>
+	    </nav>
 
-<section>
-	<a class="btn-start-game" href="/game">Start game</a>
-	<button class="btn-challenge" data-user="OliverRob">Challenge OliverRob</button>
-	<button class="btn-challenge" data-user="NooroelDylan">Challenge NooroelDylan</button>
-</section>
+	    <div class="Main__wrapper">
+	        <div class="Challenges">
+	            <section class="Challenges__playable">
+	                <h2>Nog te spelen</h2>
+
+	                <ul>
+	                    <li class="User">
+	                        <div class="User__image">
+	                            <img src="/img/rob.jpg" title="#" alt="#">
+	                        </div>
+	                        <div class="User__information">
+	                            <h3>Henk Donderslag</h3>
+	                            <span>#1 / Highscore: 110</span>
+	                        </div>
+
+	                        <div class="User__button">
+	                        	<a class="btn-start-game" href="/game" class="more">Start game</a>
+	                        </div>
+	                    </li>
+	                </ul>
+	            </section>
+
+	            <section class="Challenges__choise">
+	                <h2>Openstaande challenges</h2>
+
+	                <ul>
+	                    <li class="User">
+	                        <div class="User__image">
+	                            <img src="/img/rob.jpg" title="#" alt="#">
+	                        </div>
+	                        <div class="User__information">
+	                            <h3>Henk Donderslag</h3>
+	                            <span>#6  / Highscore: 109</span>
+	                        </div>
+	                        <div class="User__accept">
+	                            <a class="User__accept--green" href="#" title="#">accepteren</a>
+	                            <a class="User__accept--red" href="#" title="#">weigeren</a>
+	                        </div>
+	                    </li>
+	                    <li class="User">
+	                        <div class="User__image">
+	                            <img src="/img/rob.jpg" title="#" alt="#">
+	                        </div>
+	                        <div class="User__information">
+	                            <h3>Henk Donderslag</h3>
+	                            <span>#3 / Highscore: 108</span>
+	                        </div>
+	                        <div class="User__accept">
+	                            <a class="User__accept--green" href="#" title="#">accepteren</a>
+	                            <a class="User__accept--red" href="#" title="#">weigeren</a>
+	                        </div>
+	                    </li>
+	                    <li class="User">
+	                        <div class="User__image">
+	                            <img src="/img/rob.jpg" title="#" alt="#">
+	                        </div>
+	                        <div class="User__information">
+	                            <h3>Henk Donderslag</h3>
+	                            <span>#4 / Highscore: 107</span>
+	                        </div>
+	                        <div class="User__accept">
+	                            <a class="User__accept--green" href="#" title="#">accepteren</a>
+	                            <a class="User__accept--red" href="#" title="#">weigeren</a>
+	                        </div>
+	                    </li>
+	                </ul>
+
+	            </section>
+
+	            <section class="Challenges__pending">
+	                <h2>Verstuurde challenges</h2>
+
+	                <ul>
+	                    <li class="User">
+	                        <div class="User__image">
+	                            <img src="/img/rob.jpg" title="#" alt="#">
+	                        </div>
+	                        <div class="User__information">
+	                            <h3>Henk Donderslag</h3>
+	                            <span>#5 / Highscore: 106</span>
+	                        </div>
+
+	                        <div class="User__pending">
+	                            <p>in afwachting van gebruiker</p>
+	                        </div>
+	                    </li>
+	                </ul>
+
+	            </section>
+
+	        </div>
+
+	        <section class="Team">
+	            <h2>Team</h2>
+	            <ul>
+	                <li class="User">
+	                    <div class="User__image">
+	                        <img src="/img/rob.jpg" title="#" alt="#">
+	                    </div>
+	                    <div class="User__information">
+	                        <h3>Oliver Donderslag</h3>
+	                    </div>
+						<a class="btn-challenge" data-user="OliverDylan">Challenge</a>
+	                </li>
+	                <li class="User">
+	                    <div class="User__image">
+	                        <img src="/img/rob.jpg" title="#" alt="#">
+	                    </div>
+	                    <div class="User__information">
+	                        <h3>Rob Donderslag</h3>
+	                    </div>
+	                    <a class="btn-challenge" data-user="RobNooroel">Challenge</a>
+	                </li>
+                    <li class="User">
+	                    <div class="User__image">
+	                        <img src="/img/rob.jpg" title="#" alt="#">
+	                    </div>
+	                    <div class="User__information">
+	                        <h3>Henk Donderslag</h3>
+	                    </div>
+	                </li>
+	            </ul>
+	        </section>
+	    </div>
+	</main>
 
 <% include partials/footer.ejs %>
 

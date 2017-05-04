@@ -237,4 +237,3 @@ String generateChipID()
 
   return chipIDString;
 }
-

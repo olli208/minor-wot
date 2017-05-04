@@ -1,6 +1,6 @@
 (function () {
 	var socket = io();
-	var connectedUser = 'NooroelDylan';
+	var connectedUser = 'RobNooroel';
 
 	function counter() {
 		socket.on('counter', function(count){
