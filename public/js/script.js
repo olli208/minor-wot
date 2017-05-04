@@ -38,8 +38,14 @@
 	}
 
 	function questionAnswer() {
+		var scoreEl = document.querySelector('.user-score');
+
 		socket.on('question answer', function(data) {
-			window.location.href = '/game';
+			window.location.href = '/game?previousAnswer=' + data;
+			// if(data) {
+			// 	socket.score++;
+			// 	scoreEl.innerHTML = socket.score;
+			// }			
 		});
 	}
 

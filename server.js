@@ -99,10 +99,6 @@ app.get('/', function(req, res) {
 });
 
 app.get('/game', function(req, res) {
-    if(req.query.previousAnswer) {
-        console.log('rightrightright', req.session)
-    }
-
     setInterval(function(){
         request.get('http://www.colr.org/json/', function(error, response, body) {
             if (!error && response.statusCode === 200) {
