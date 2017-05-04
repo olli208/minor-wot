@@ -113,9 +113,9 @@ Dit product maakt gebruik van een TiltSensor.
 Met de TiltSensor wordt het mogelijk gemaakt om het spel te herstarten. De gebruiker kan dit doen door de knop te kantelen.
 
 ## Wishlist
-- [] Uitbreiden naar andere soortgelijke games voor developers met hetzelfde concept
-- [] Random een collega uitdagen
-- [] Knop vormgeven naar interieur kantoor
+- [ ] Uitbreiden naar andere soortgelijke games voor developers met hetzelfde concept
+- [ ] Random een collega uitdagen
+- [ ] Knop vormgeven naar interieur kantoor
 
 ## Sources
 - [colr api](http://www.colr.org/api.html)
