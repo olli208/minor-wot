@@ -44,7 +44,8 @@ template {
 }
 
 a {
-    background-color: transparent
+    background-color: transparent;
+    cursor: pointer;
 }
 
 a:active,
@@ -731,6 +732,14 @@ th {
         background: #2c2c2c;
         padding: 28px 0;
     }
+
+    .Top h3 {
+        display: inline-block;
+    }
+
+    .Top h3 a {
+        color: #fff;
+    }
     .User {
         padding: 20px
     }
@@ -890,6 +899,11 @@ th {
         margin-left: 20px;
         border: 1px solid #d9d9d9;
         margin-bottom: 20px
+    }
+
+    .Team .User__information {
+        margin-top: 0;
+        margin-bottom: 10px;
     }
     .Team h3 {
         line-height: 48px
