@@ -913,3 +913,30 @@ th {
         clear: both
     }
 }
+
+/*Olivers code hierrr*/
+/* CSS GAME */
+.game-section {
+    margin-top: 20em;
+    text-align: center;
+    height: 100vh;
+}
+
+.h1Game {
+    font-size: 2vw;
+    color: #333333;
+    margin-bottom: 0;
+}
+
+.h2Game {
+    margin-top: 0;
+    padding-top: 0;
+    font-size: 9vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px #d1d1d1;
+    letter-spacing: -3px;
+    border-bottom: 0;
+}
+/* Einde code Oliver
+*/
