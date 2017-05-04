@@ -39,12 +39,14 @@ Het doel van de toepassing is om werknemers (developers) op de werkvloer tussend
 - Muis
 
 ![image](https://github.com/nooroel-imamdi/minor-wot/blob/master/docs/desktop-freepik.png?raw=true)
+
 [Freepik](http://www.freepik.com/free-photos-vectors/business)
 
 ### 2. Meten is weten / Waarom ontwerpen wij dit
 
 Het *Centraal Bureau voor de Statistiek (CBS)* komt met een rapportage dat “mensen die met stress op het werk te maken hebben, aangeven vaker last te hebben van depressiviteit of angstgevoelens.”
-[Freepik](https://www.cbs.nl/nl-nl/nieuws/2004/04/depressiviteit-en-stress-op-het-werk)
+
+[CBS bron](https://www.cbs.nl/nl-nl/nieuws/2004/04/depressiviteit-en-stress-op-het-werk)
 
 Probleem: Stress zorgt voor depressiviteit en angstgevoelens.
 Bijdragende oplossing: Ontspanning tussen het werk door
