@@ -5,9 +5,9 @@ Mindf*ck Colorgame - Dylan van Sprang | Nooroel Imamdi | Oliver Oenang | Rob van
 
 ![image](https://s-media-cache-ak0.pinimg.com/564x/b3/e0/5c/b3e05c9a200edac39db36ac45950a73b.jpg)
 
-Webdevelopers kunnen tussen het werk door elkaar onderling uitdagen op de werkvloer met de Mindf*ck colorgame, met als voornaamste doel tussendoor ontspanning te zoeken tussen het werk door.
+Webdevelopers kunnen tussen het werk door elkaar onderling uitdagen op de werkvloer met de Mindf*ck colorgame, met als voornaamste doel tussen het werk door ontspanning te zoeken.
 
-De Mindf*ck colorgame betreft een spel waarbij de juiste kleur bij het desbetreffende woord geraden moet worden binnen een x aantal seconden. De gebruiker kan zijn keuze uitbrengen door op één van twee lichtknoppen te drukken waarvan hij denkt dat het de bijhorende kleur is. Deze challenge wordt uiteindelijk opgenomen in een ranking onder de werknemers binnen een bedrijf. De resultaten resulteren in een klassement onder de werknemers.
+De Mindf*ck colorgame betreft een spel waarbij de juiste kleur bij het desbetreffende woord geraden moet worden binnen een x aantal seconden. De gebruiker kan zijn keuze uitbrengen door op één van twee lichtknoppen, die beiden een kleur krijgen, te drukken waarvan hij denkt dat het de bijhorende kleur is. Deze challenge wordt uiteindelijk opgenomen in een ranking onder de werknemers binnen een bedrijf. De resultaten worden uiteindelijk getoond in een klassement onder de werknemers.
 
 - [Eerste uitwerking](http://imamovicdesign.com/minor/wot/red.html)
 
@@ -19,12 +19,12 @@ Het doel van de toepassing is om werknemers (developers) op de werkvloer tussend
 
 ### Stappen
 - Gebruiker A kan een gebruiker uitnodigen voor een challenge via het dashboard.
-- Gebruiker B ontvangt uitnodiging via een oranje lichtsignaal van de knop.
+- Gebruiker B ontvangt uitnodiging via een gele lichtsignaal van de knop.
 - Gebruiker B accepteert de challenge door op de knop te drukken en kan weigeren door de knop te schudden.
 - Gebruiker A en gebruiker B ontvangen een bevestiging in het dashboard.
-- Vervolgens kunnen zij het spel, afzonderlijk van elkaar, starten in de dashboard.
-- Na afloop verschijnt een score die behaald is.
-- Indien beiden gebruikers het spel hebben gespeeld, worden beiden hiervan op de hoogte gesteld van de definitieve uitkomst met een lichtsignaal op de knop en een notificatie vanuit het dashboard.
+- Vervolgens kunnen zij het spel, afzonderlijk van elkaar, starten in het dashboard.
+- Na afloop verschijnt een overzicht met de score die behaald is.
+- Indien beiden gebruikers het spel hebben gespeeld, worden beiden op de hoogte gesteld van de definitieve uitkomst met een lichtsignaal op de knop en een notificatie vanuit het dashboard.
 
 
 ## Ontwerpproces
@@ -102,10 +102,14 @@ Colr api wordt gebruikt om random kleuren te genereren en naar de dozen te sture
 ### Feedbackloop
 De gebruiker speelt het spel, krijgt een score terug en krijgt vervolgens de optie om zijn score per dag te verbeteren en doorloopt daardoor de feedbackloop
 
-### Sensoren die wij gaan / willen gebruiken
-Bewegingssensor om spel te resetten
-Trilsensor om melding naar andere doosjes te melden of je “uitgedaagd”  wordt.
+### Sensoren die wij gebruiken
+Dit product maakt gebruik van een TiltSensor.
 
+*The tilt sensor is a component that can detect the tilting of an object. However it is only the equivalent to a pushbutton activated through a different physical mechanism. This type of sensor is the environmental-friendly version of a mercury-switch. It contains a metallic ball inside that will commute the two pins of the device from on to off and viceversa if the sensor reaches a certain angle.*
+
+[Arduino](https://www.arduino.cc/en/Tutorial/TiltSensor)
+
+Met de TiltSensor wordt het mogelijk gemaakt om het spel te herstarten. De gebruiker kan dit doen door de knop te kantelen.
 
 ## Sources
 - [colr api](http://www.colr.org/api.html)
