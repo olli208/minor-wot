@@ -103,8 +103,18 @@ app.get('/game', function(req, res) {
         console.log('rightrightright', req.session)
     }
 
+    setInterval(function(){
+        request.get('http://www.colr.org/json/', function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                if (Math.round(Math.random())) {
+                    randomCol = body;
+                }
+            }
+        });
+    }, 3000);
+
     // reset socket.io countdown
-    clearInterval(countdown);
+    clearInterval(countdown); // not neccesary
 
     var boxColor = htmlColor.random();  // send to box
     var textColor = htmlColor.random(); // Text color the user sees
@@ -197,8 +207,8 @@ app.get('/users/controller', function(req, res) {
 // Olivers code toegevoegd:
 app.get('/restart', function(req, res) {
     // When sensor/box is put sideways go to this route
-    console.log('restarting game...')
-    res.redirect('index');
+    console.log('stopping game...');
+    res.redirect('/');
 });
 
 http.listen(process.env.PORT || 5000, function (){
